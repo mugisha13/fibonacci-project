@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/css/index.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dragon conqueror</title>
+</head>
+<body>
+    <div class="wraper">
+        <header>
+            <h2>Dragon conqueror</h2>
+        </header>
+    </div>
+    <div id="game">
+        <div class="container">
+            <div class="row">
+                <div class="col">
+                    <div class="health">
+                        <div class="health-bar" :style="worriorHealthBar">
+                            <span class="hp-percent">{{worriorHealth} %}</span>
+                        </div>
+                    </div>
+                    <p class="text-center">warrior</p>
+                    <div class="img-container">
+                        <img src="assets/gifs/warrior1.gif" alt="warrior">
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="health">
+                        <div class="col">
+                            <div class="health">
+                                <div class="health-bar" :style="dragonrHealthBar">
+                                    <span class="hp-percent">{{dragonHealth} %}</span>
+                                </div>
+                            </div>
+                            <p class="text-center">Dragon</p>
+                            <div class="img-container">
+                                <img src="assets/gifs/dragon1.gif" alt="dragon">
+                            </div>
+                        </div>   
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col control">
+                        <button class="control-icon attack" @click="attackDragon">
+                            <img src="assets/img/attack_icon.svg" alt="attack">
+                        </button>
+                        <button class="control-icon" @click="specialattackDragon" :disabled="numberOfspecialAttack === 0">
+                            <img src="assets/img/special_attack.svg" alt="special_attack">
+                        </button>
+                        <button class="control-icon" @click="heal" :disabled="numberOfheals === 0">
+                            <img src="assets/img/heal_icon.svg" alt="heal">
+                            <span class="num-of-attempts"> {{numberOfheals}} </span>
+                        </button>
+                        <button class="control-icon" @click="forfeit">
+                            <img src="assets/img/surrender_icon.png" alt="give-up">
+                        </button>
+                    </div>
+                </div>
+
+                <div class="row mt-5">
+                    <div class="container">
+                        <h4 class="text-center">Battlelogs</h4>
+                        <ul class="col-md-5 logs">
+                            <li v-for="logMessage in BattlelogMessage" :key="log" class="text-center">
+                                <span :class="{'warrior': logMessage.attacker === 'warrior',
+                                 'dragon' : logMessage.attacker === 'dragon'}">
+                                <img src="assets/gifs/warrior1.gif" alt="warrior" v-for="logMessage ==='warrior'" class="img-icon">
+                                <img src="assets/gifs/dragon1.gif" alt="dragon" v-else class="img-icon">
+                                </span>
+                                <span v-if="logMessage.ActionType === 'heal'">
+                                    heals himself for  <span class="log-heal"></span>
+                                </span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
